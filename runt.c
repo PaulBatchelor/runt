@@ -1774,7 +1774,7 @@ size_t runt_getline(char **lineptr, size_t *n, FILE *stream)
 {
     char *bufptr = NULL;
     size_t size;
-    char c;
+    int c;
     size_t pos;
 
     if (lineptr == NULL) {
@@ -1809,7 +1809,7 @@ size_t runt_getline(char **lineptr, size_t *n, FILE *stream)
                 return -1;
             }
         }
-        bufptr[pos] = c;
+        bufptr[pos] = (char)c;
         pos++;
         if (c == '\n') {
             break;
