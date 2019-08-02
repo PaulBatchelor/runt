@@ -29,7 +29,7 @@ irunt: main.c $(OBJ)
 	$(CC) $(CFLAGS) main.c $(OBJ) -o $@ $(LDFLAGS)
 
 librunt.a: $(OBJ)
-	ar rcs $@ $(OBJ)
+	$(AR) rcs $@ $(OBJ)
 
 plugin: plugin.so
 
