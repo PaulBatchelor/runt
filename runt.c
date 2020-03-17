@@ -1990,6 +1990,34 @@ void runt_stacklet_init(runt_vm *vm, runt_stacklet *s)
     s->p = vm->nil;
 }
 
+int runt_stacklet_isnil(runt_vm *vm, runt_stacklet *s)
+{
+    runt_ptr *p[2];
+    p[0] = &s->p;
+    p[1] = &vm->nil;
+    return p[0] == p[1];
+}
+
+int runt_register_nextfree(runt_vm *vm, int start)
+{
+    int n;
+    int pos;
+    runt_stacklet *reg;
+    int rc;
+
+    reg = vm->reg;
+
+    start %= RUNT_REGISTER_SIZE;
+
+    for (n = 0; n < RUNT_REGISTER_SIZE; n++) {
+        pos = (n + start) % RUNT_REGISTER_SIZE;
+        rc = runt_stacklet_isnil(vm, &reg[pos]);
+        if (rc == RUNT_OK) return n;
+    }
+
+    return -1;
+}
+
 runt_int runt_register_get(runt_vm *vm, runt_int r, runt_stacklet **s)
 {
     if(r < 0 || r >= RUNT_REGISTER_SIZE) return RUNT_NOT_OK;
@@ -2001,6 +2029,13 @@ runt_int runt_register_set(runt_vm *vm, runt_int r, runt_stacklet *s)
 {
     if(r < 0 || r >= RUNT_REGISTER_SIZE) return RUNT_NOT_OK;
     vm->reg[r] = *s;
+    return RUNT_OK;
+}
+
+runt_int runt_register_clear(runt_vm *vm, runt_int r)
+{
+    if(r < 0 || r >= RUNT_REGISTER_SIZE) return RUNT_NOT_OK;
+    runt_stacklet_init(vm, &vm->reg[r]);
     return RUNT_OK;
 }
 
