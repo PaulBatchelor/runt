@@ -428,6 +428,7 @@ void runt_registers_init(runt_vm *vm);
 runt_int runt_register_get(runt_vm *vm, runt_int r, runt_stacklet **s);
 runt_int runt_register_set(runt_vm *vm, runt_int r, runt_stacklet *s);
 runt_int runt_register_clear(runt_vm *vm, runt_int r);
+int runt_register_nextfree(runt_vm *vm, int start);
 
 /* Standard Library Procedures */
 
