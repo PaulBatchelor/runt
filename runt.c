@@ -1990,12 +1990,14 @@ void runt_stacklet_init(runt_vm *vm, runt_stacklet *s)
     s->p = vm->nil;
 }
 
-int runt_stacklet_isnil(runt_vm *vm, runt_stacklet *s)
+int runt_isnil(runt_ptr *p)
 {
-    runt_ptr *p[2];
-    p[0] = &s->p;
-    p[1] = &vm->nil;
-    return p[0] == p[1];
+    return p->type == RUNT_NIL;
+}
+
+int runt_stacklet_isnil(runt_stacklet *s)
+{
+    return runt_isnil(&s->p);
 }
 
 int runt_register_nextfree(runt_vm *vm, int start)
@@ -2011,8 +2013,8 @@ int runt_register_nextfree(runt_vm *vm, int start)
 
     for (n = 0; n < RUNT_REGISTER_SIZE; n++) {
         pos = (n + start) % RUNT_REGISTER_SIZE;
-        rc = runt_stacklet_isnil(vm, &reg[pos]);
-        if (rc == RUNT_OK) return n;
+        rc = runt_stacklet_isnil(&reg[pos]);
+        if (rc) return pos;
     }
 
     return -1;

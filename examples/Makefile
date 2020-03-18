@@ -1,6 +1,6 @@
 default: all
 
-all: simple lowlevel api last_word dict
+all: simple lowlevel api last_word dict nextfree
 
 simple: simple.c
 	$(CC) $< -o $@ -I../ ../librunt.a -ldl
@@ -17,9 +17,13 @@ last_word: last_word.c
 dict: dict.c
 	$(CC) $< -o $@ -I../ ../librunt.a -ldl
 
+nextfree: nextfree.c
+	$(CC) $< -o $@ -I../ ../librunt.a -ldl
+
 clean:
 	$(RM) simple
 	$(RM) lowlevel
 	$(RM) api
 	$(RM) last_word
 	$(RM) dict
+	$(RM) nextfree

@@ -262,7 +262,7 @@ void runt_stack_bias(runt_vm *vm, runt_stack *stack, runt_int bias);
 void runt_stack_unbias(runt_vm *vm, runt_stack *stack);
 void runt_stacklet_copy(runt_vm *vm, runt_stacklet *src, runt_stacklet *dst);
 void runt_stacklet_init(runt_vm *vm, runt_stacklet *s);
-int runt_stacklet_isnil(runt_vm *vm, runt_stacklet *s);
+int runt_stacklet_isnil(runt_stacklet *s);
 int runt_stack_dup(runt_vm *vm);
 int runt_stack_swap(runt_vm *vm);
 
